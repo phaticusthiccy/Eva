@@ -1,0 +1,14 @@
+{
+  "information": {
+    "info_tr": "Library adındaki bu dosya, eva'ya ait bazı dataların, işlemlerin tutulduğu bölümdür.",
+    "info_en": "This library is the storaging eva data and transactions."
+  },
+  "author": "Phaticusthiccy",
+  "eva_info": "Eva Neural Assistant - Chatbot // Machine Learning - Deep Learning",
+  "version": "global",
+  "npm": true,
+  "cli": false,
+  "languages": {
+    "langs": ["JavaScript", "Node", "Typescript"]
+  }
+}
