@@ -26,6 +26,9 @@ async function information()
     cli: false,
     languages: {
       langs: ["JavaScript", "Node", "Typescript"]
+    }
   }
+  var payload = data
+  return payload;
 }
 module.exports = { information_js }
