@@ -1,0 +1,14 @@
+http://launchpadlibrarian.net/61970301/python-mode.el
+http://ipython.scipy.org/dist/ipython.el
+http://dishevelled.net/elisp/lambda-mode.el
+
+http://autopair.googlecode.com/svn/trunk/autopair.el
+http://gist.github.com/raw/302847/3331473995b55cc578e7d63dd82474749367c29c/python-pep8.el
+http://gist.github.com/raw/302848/60961ad1134e7bec5d836857fb67109245548dad/python-pylint.el
+
+http://yasnippet.googlecode.com/files/yasnippet-bundle-0.6.1c.el.tgz
+
+http://www.emacswiki.org/emacs/download/anything.el
+http://www.emacswiki.org/emacs/download/anything-config.el
+http://www.emacswiki.org/emacs/download/anything-ipython.el
+http://www.emacswiki.org/cgi-bin/emacs/download/anything-show-completion.el
