@@ -3,7 +3,7 @@
 ;;; http://cvs.savannah.gnu.org/viewvc/*checkout*/emacs/lisp/json.el?root=emacs
 (require 'json)
 
-(setq *alk-membase-default-host* "Administrator:asdasd@lh:9000")
+(setq *alk-membase-default-host* "user:port")
 (setq *alk-membase-host-split-re* (redsl-to-regexp '(concat (line-begin)
                                                             (\? (concat (cap-group (literal ".*?"))
                                                                         (\? (concat ":" (cap-group (literal ".*?"))))
@@ -13,7 +13,7 @@
                                                             (line-end))))
 
 ;; (save-match-data
-;;   (let ((*alk-membase-default-host* "aasd@asd:11"))
+;;   (let ((*alk-membase-default-host* "user:port"))
 ;;     (string-match *alk-membase-host-split-re* *alk-membase-default-host*)
 ;;     (list (match-string 1 *alk-membase-default-host*)
 ;;           (match-string 2 *alk-membase-default-host*)
