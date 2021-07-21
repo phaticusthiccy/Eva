@@ -20,7 +20,18 @@ employed so that flycheck still does *some* helpful linting.")
 ;; to pretend it isn't loaded
 (defer-feature! elisp-mode emacs-lisp-mode)
 
+;; Eva Config Files Written With Emacs
+;; Experimental Data
+;; Chance %50 to Work
 
+;; Additional İnformation
+;; Fork - true
+;; Edit - true
+;; Local Edit - true
+;; Exp - true
+;; Worker - Not Recommend
+;; Docker - false
+;; Ability - false
 ;;
 ;;; Config
 
