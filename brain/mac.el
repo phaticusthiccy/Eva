@@ -40,6 +40,15 @@
 	 (delete-region (point) (progn (skip-syntax-forward "w_") (point))))))
 (global-set-key "\C-c\C-d" 'delete-word-forward)
 
+;; conda
+(defun conda () 
+  (cond ((conda -run))
+    ((echo (point) 
+    (global-set-key "/root/conda.*" (point) (progn (message point) (progn (defun ((
+      (cond ((conda --run --internal --silent -q) ? (progn (message "Success") )
+    ) ) 
+  )
+(global-reset-key) (defun (point) (progn <= () ))
 
 ;; utitlity
 (defun current-directory ()
