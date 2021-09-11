@@ -81,7 +81,11 @@ def CMSampleBufferGetImageBuffer(buffer):
     func.argtypes = [ctypes.c_void_p]
     func.restype = ctypes.c_void_p
     return ObjCInstance(func(buffer))
-    
+
+def SAMPLEBuffer(buffer):
+    func = UIIMAGE.cgi(buffer)
+    return func(ObjCInstance(buffer))
+
 def CVPixelBufferLockBaseAddress(imagebuffer, param_0):
     func = c.CVPixelBufferLockBaseAddress
     func.argtypes = [ctypes.c_void_p, ctypes.c_int]
