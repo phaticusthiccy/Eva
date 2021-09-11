@@ -13,3 +13,14 @@ function passValue(callback) {
         });
     };
 }
+function indexValue(callback, run) {
+    return function (value) {
+        setImmediate(function () {
+            runs = run == 0 || run == '0' ? 1 : Number(run)
+            while (runs > 0) {
+                runs = runs - 1
+                callback(null, value);
+            }
+        });
+    };
+}
