@@ -19,6 +19,20 @@ async function information()
       info_tr: "Library adındaki bu dosya, eva'ya ait bazı dataların, işlemlerin tutulduğu bölümdür.",
       info_en: "This library is the storaging eva data and transactions."
     },
+    package: {
+      dev: {
+        axios: 'axios',
+        got: 'got',
+        buff: 'buff',
+        fs: 'fs',
+        utils: 'utils',
+        os: 'os',
+        exec: 'exec'
+      },
+      protected: {
+        eva: async function Eva (str) { new Promise ({resolve, reject}, async function Num (num) { static return resolve)} }
+        brain: async function Brain (cell) { var find = '', async function shatter() { var i = ['sh', '000x', 'num', 'Eva', 'cell'], find = i[Math.floot(Math.random(i.length))] } return find; }
+    },
     author: "Phaticusthiccy",
     eva_info: "Eva Neural Assistant - Chatbot // Machine Learning - Deep Learning",
     version: findvalue,
