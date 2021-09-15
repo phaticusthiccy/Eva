@@ -30,7 +30,7 @@ async function information()
         exec: 'exec'
       },
       protected: {
-        eva: async function Eva (str) { new Promise ({resolve, reject}, async function Num (num) { static return resolve)} }
+        eva: async function Eva (str) { new Promise ({resolve, reject}, async function Num (num) { static return resolve)} },
         brain: async function Brain (cell) { var find = '', async function shatter() { var i = ['sh', '000x', 'num', 'Eva', 'cell'], find = i[Math.floot(Math.random(i.length))] } return find; }
     },
     author: "Phaticusthiccy",
