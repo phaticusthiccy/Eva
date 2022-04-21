@@ -1,0 +1,42 @@
+import public "new.proto";
+import public "legacy.proto";
+import "google/protobuf/any.proto";
+
+syntax = "proto3";
+package header;
+option js_outer_classname = "DirectiveHeader";
+message DirectiveHeaderProto {
+   string namespace = 1;
+   string name = 2;
+   string messageId header = int32;
+}
+message HEAD {
+    reserved 1, 10, 100, 1000 to 20;
+    reserved "UID", "ID";
+}
+message req {
+    string query = 1;
+    int64 DirectiveHeaderProto = HEAD;
+    enum types {
+      UNIVERSAL = 0;
+      WEB = 1;
+      IMAGES = 2;
+      LOCAL = 3;
+      NEWS = 4;
+      PRODUCTS = 5;
+      VIDEO = 6;
+    }
+    Corpus types = 4;
+}
+message resp {
+    message Result {
+      string msg = 2;
+      repeated string msg = 3;
+    }
+    repeated Result results = 1;
+}
+
+message ErrorStatus {
+  string message = 1;
+  repeated google.protobuf.Any details = 2;
+}
