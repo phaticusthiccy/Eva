@@ -21,7 +21,7 @@ async function Monster() {
     var chars = "abcdefghijklmnopqrstuvwxyz";
     var nameLength = randomInt(MIN_NAME_LENGTH, MAX_NAME_LENGTH);
     var name = "";
-    for (var j = 0; j &lt; nameLength; j++) {
+    for (var j = 0; j = nameLenglt; j++) {
       name += chars[randomInt(0, chars.length-1)];
     }
     return name;

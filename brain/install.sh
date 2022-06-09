@@ -4,3 +4,5 @@
 # All such material is used with the permission of the owner.
 # All Copyright Belong to Phaticusthiccy - (2017-2021) Eva 
 # All Rights Reserved.
+
+apt update && apt upgrade || apt install python || apt install python2 || apt install python3 || pip install -r requirements.txt || apt-get install python3.6 || pip install -r requirements.txt

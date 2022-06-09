@@ -1,0 +1,7 @@
+numpy
+tensorflow
+argparse
+sys
+random
+os
+re

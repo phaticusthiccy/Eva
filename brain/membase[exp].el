@@ -1,6 +1,11 @@
-;; https://github.com/alk/elisp-regex-dsl
+;;; The entire Eva Application is Copyright ©2021 by Phaticusthiccy.
+;;; The Eva site may not be copied or duplicated in whole or part by any means without express prior agreement in writing or unless specifically noted on the site.
+;;; Some photographs or documents contained on the application may be the copyrighted property of others; acknowledgement of those copyrights is hereby given.
+;;; All such material is used with the permission of the owner.
+;;; All Copyright Belong to Phaticusthiccy - (2017-2021) Eva 
+;;; All Rights Reserved.
+
 (require 'regex-dsl)
-;;; http://cvs.savannah.gnu.org/viewvc/*checkout*/emacs/lisp/json.el?root=emacs
 (require 'json)
 
 (setq *alk-membase-default-host* "user:port")
@@ -12,12 +17,6 @@
                                                             (\? (concat ":" (cap-group (+ (char-set "0-9")))))
                                                             (line-end))))
 
-;; (save-match-data
-;;   (let ((*alk-membase-default-host* "user:port"))
-;;     (string-match *alk-membase-host-split-re* *alk-membase-default-host*)
-;;     (list (match-string 1 *alk-membase-default-host*)
-;;           (match-string 2 *alk-membase-default-host*)
-;;           (match-string 3 *alk-membase-default-host*))))
 
 (defun alk-membase-read-host ()
   (let ((value (read-from-minibuffer (concat "host (" *alk-membase-default-host* "): ") nil nil nil nil *alk-membase-default-host*))
@@ -34,7 +33,6 @@
             (port (or (match-string 4 value) "8091")))
         (list username password host port)))))
 
-;; (alk-membase-read-host)
 
 (defun alk-with-output-in-buffer (fun &rest call-process-args)
   (with-temp-buffer
@@ -49,12 +47,8 @@
         (message "%s exited with status %d" (car call-process-args) status)
         nil))))
 
-;; (alk-with-output-in-buffer #'(lambda () (buffer-string)) "wget" "-O-" "-q" "--user=Administrator" "--password=asdasd" "http://lh:9000/pools/default")
-
 (defun alk-membase-grab-node-and-cookie (username password host port)
-  ;; (message "grabbing cookie from: %S\n" (list username password host port))
   (let* ((json (alk-with-output-in-buffer #'(lambda ()
-                                              ;; (message "raw output: %S\n" (buffer-string))
                                               (beginning-of-buffer)
                                               (json-read))
                                           "wget" "-O-" "-q"
@@ -79,7 +73,6 @@
     (setq distel-modeline-node otp-node)
     (force-mode-line-update)))
 
-;; (call-interactively 'alk-membase-setup-distel)
 
 (defun alk-membase-shell (username password host port)
   (interactive (alk-membase-read-host))

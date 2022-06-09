@@ -1,23 +1,20 @@
-;;; lang/emacs-lisp/config.el -*- lexical-binding: t; -*-
+;;; The entire Eva Application is Copyright ©2021 by Phaticusthiccy.
+;;; The Eva site may not be copied or duplicated in whole or part by any means without express prior agreement in writing or unless specifically noted on the site.
+;;; Some photographs or documents contained on the application may be the copyrighted property of others; acknowledgement of those copyrights is hereby given.
+;;; All such material is used with the permission of the owner.
+;;; All Copyright Belong to Phaticusthiccy - (2017-2021) Eva 
+;;; All Rights Reserved.
 
-(defvar +emacs-lisp-enable-extra-fontification t
-  "If non-nil, highlight special forms, and defined functions and variables.")
 
-(defvar +emacs-lisp-outline-regexp "[ \t]*;;;;* [^ \t\n]"
-  "Regexp to use for `outline-regexp' in `emacs-lisp-mode'.
-This marks a foldable marker for `outline-minor-mode' in elisp buffers.")
+(defvar +emacs-lisp-enable-extra-fontification t)
+
+(defvar +emacs-lisp-outline-regexp "[ \t]*;;;;* [^ \t\n]")
 
 (defvar +emacs-lisp-disable-flycheck-in-dirs
   (list doom-emacs-dir doom-private-dir)
-  "List of directories to disable `emacs-lisp-checkdoc' in.
-
-This checker tends to produce a lot of false positives in your .emacs.d and
-private config, so it is mostly useless there. However, special hacks are
-employed so that flycheck still does *some* helpful linting.")
+)
 
 
-;; `elisp-mode' is loaded at startup. In order to lazy load its config we need
-;; to pretend it isn't loaded
 (defer-feature! elisp-mode emacs-lisp-mode)
 
 ;; Eva Config Files Written With Emacs

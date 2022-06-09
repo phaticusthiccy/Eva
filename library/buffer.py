@@ -1,6 +1,12 @@
-# coding: utf-8
-# based on Cethric's image capture gist....
-FRAME_PROC_INTERVAL=15 #num frames to skip. 1=go as fast as possible, 5=every fifth frame
+# The entire Eva Application is Copyright ©2021 by Phaticusthiccy.
+# The Eva site may not be copied or duplicated in whole or part by any means without express prior agreement in writing or unless specifically noted on the site.
+# Some photographs or documents contained on the application may be the copyrighted property of others; acknowledgement of those copyrights is hereby given.
+# All such material is used with the permission of the owner.
+# All Copyright Belong to Phaticusthiccy - (2017-2021) Eva 
+# All Rights Reserved.
+
+
+FRAME_PROC_INTERVAL=15
 import ui
 from objc_util import *
 import ctypes
@@ -70,7 +76,6 @@ def dispatch_get_current_queue():
 
     
 def dispatch_release(queue_obj):
-    #raise RuntimeError('This is not the method you are looking for')
     func = c.dispatch_release
     func.argtyps = [ctypes.c_void_p]
     func.restype = None
@@ -204,9 +209,6 @@ def detect_faces(samplebuffer):
     rectangle_detector = CIDetector.detectorOfType_context_options_('CIDetectorTypeRectangle', None, options)
 
     faces = face_detector.featuresInImage_(ciimage)
-    #if faces:
-    #   faces=list(ObjCInstance(faces))
-    #else:
     faces=[]
     rects = rectangle_detector.featuresInImage_(ciimage)
     if rects:
@@ -223,7 +225,6 @@ view = None
 def change_image(image):
     if view is not None:
         ObjCInstance(view['imageview1']).setImage_(ObjCInstance(image))
-        # view['imageview1'].image = ui.Image.named('test.png')
 @on_main_thread
 def set_label(txt):
     if view is not None:
@@ -231,7 +232,7 @@ def set_label(txt):
 import time
 @on_main_thread
 def compute_fps():
-    a=.1   # ewma coefficient to smooth fps display
+    a=.1 
     if view is not None:
          t=time.perf_counter()
          view.fps=a/(t-view.last_time)+(1-a)*view.fps
@@ -250,17 +251,11 @@ def captureOutput_didOutputSampleBuffer_fromConnection_(_cmd, _self, _output, _b
       if view.frame_count>=FRAME_PROC_INTERVAL:
          view.frame_count=0
          buffer = ObjCInstance(_buffer)
-         #image = UIImageFromSampleBuffer(buffer)
          faces,rects, image_size=detect_faces(buffer)
          view.faces=faces
          view.rects=rects
          view.image_size=image_size
          view.processed_frames=view.processed_frames+1
-         #imageRep = UIImagePNGRepresentation(image)
-         #imageRep = UIImageJPEGRepresentation(image)
-         #imageRep.writeToFile_atomically_('test.png', True)
-         #imageRep.writeToFile_atomically_('test.jpg', True)
-         #change_image(image)
       compute_fps()
       pv.set_needs_display()
       
@@ -280,9 +275,7 @@ delegate_call = create_objc_class('delegate_call', protocols=['AVCaptureVideoDat
 DESIRED_FPS = 5
 @on_main_thread
 def set_frame_rate(inputDevice, captureSession, desired_fps):
-    #this doesnt seem to work at all!
     supported_rates=inputDevice.activeFormat().videoSupportedFrameRateRanges()[0]
-    #print('min support',supported_rates.minFrameRate())
     if (desired_fps) <= supported_rates.maxFrameRate() and desired_fps >= supported_rates.minFrameRate():
         desired_intervalnum=600//desired_fps
         err_ptr = c_void_p()
@@ -292,11 +285,9 @@ def set_frame_rate(inputDevice, captureSession, desired_fps):
         if err_ptr:
             raise()
         inputDevice.setActiveVideoMinFrameDuration_((desired_intervalnum,600,0,0))
-        #print('a,b',inputDevice.activeVideoMinFrameDuration().a ,inputDevice.activeVideoMinFrameDuration().b)
         inputDevice.setActiveVideoMinFrameDuration_((desired_intervalnum,600,0,0))
         inputDevice.unlockForConfiguration()
         captureSession.commitConfiguration()
-        #print('a,b',inputDevice.activeVideoMinFrameDuration().a ,inputDevice.activeVideoMinFrameDuration().b)
         
 class CameraView(ui.View):
     @on_main_thread
@@ -306,7 +297,6 @@ class CameraView(ui.View):
         self.inputDevice = AVCaptureDevice.devices()[0]
         
 
-        #(CMTimeMake(2,1), argtypes=[CMTime], restype=None)
         
         self.captureInput = AVCaptureDeviceInput.deviceInputWithDevice_error_(self.inputDevice, None)
 
@@ -328,11 +318,8 @@ class CameraView(ui.View):
         self.captureVideoPreviewLayer = AVCaptureVideoPreviewLayer.layerWithSession_(self.captureSession)
         
         queue_test = dispatch_queue_create(b'imageDispatch', None)
-        #queue_test = dispatch_get_current_queue()
 
         
-        #self.inputDevice.lockForConfiguration_(None)
-
         
         print(self.captureOutput.connections()[0].videoMinFrameDuration().a)
         callback = delegate_call.alloc().init()
@@ -364,8 +351,6 @@ class PathView(ui.View):
       ui.set_color(color)
       for rect in rects:
           rect_bounds = rect.bounds()
-          # View は X軸=375 Y軸=667
-          # 画像のX軸Y軸をViewのY軸X軸に対応させ、サイズを調整
           x = rect_bounds.origin.y    * self.height / view.image_size[0]
           y = rect_bounds.origin.x    * self.width  / view.image_size[1]
           w = rect_bounds.size.height * self.height / view.image_size[0]
@@ -394,7 +379,6 @@ class CustomView(ui.View):
         
     def did_load(self):
         self['camera'].set_layer()
-        #self['imageview1'].image = ui.Image.named('test:Numbers')
         
     def present(self, *args, **kwargs):
         ui.View.present(self, *args, **kwargs)
@@ -407,12 +391,10 @@ class CustomView(ui.View):
 view=CustomView()
 cv=CameraView(frame=(0,0,400,600), name='camera')
 pv=PathView(frame=(0,0,400,600), name='path')
-#iv=ui.ImageView(name='imageview1', frame=(400,0,400,600))
 lbl=ui.Label(name='lbl',frame=(0,0,800,200))
 lbl.text_color='#fbff99'
 view.add_subview(cv)
 view.add_subview(pv)
-#view.add_subview(iv)
 view.add_subview(lbl)
 view.did_load()
 view.present()

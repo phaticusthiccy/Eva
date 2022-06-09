@@ -1,12 +1,15 @@
-# REFERENCES:
-# https://pymotw.com/2/asynchat/
-# tuple unpacking https://stackoverflow.com/questions/1993727/expanding-tuples-into-arguments
+# The entire Eva Application is Copyright ©2021 by Phaticusthiccy.
+# The Eva site may not be copied or duplicated in whole or part by any means without express prior agreement in writing or unless specifically noted on the site.
+# Some photographs or documents contained on the application may be the copyrighted property of others; acknowledgement of those copyrights is hereby given.
+# All such material is used with the permission of the owner.
+# All Copyright Belong to Phaticusthiccy - (2017-2021) Eva 
+# All Rights Reserved.
 
 import asyncore
 import asynchat
 import logging
 import socket
-import threading #would multiprocessing be better?
+import threading
 
 from concurrent.futures import ProcessPoolExecutor
 
@@ -19,11 +22,9 @@ def start():
     print("started loop")
 
 def init_thread(run):
-    new_thread = threading.Thread() # create a new thread object.
+    new_thread = threading.Thread() 
     new_thread.run = run
     new_thread.start()
-    #process_executor = ProcessPoolExecutor(max_workers=1)
-    #process_executor.submit(run)
 
 class EchoServer(asyncore.dispatcher):
     
@@ -37,15 +38,8 @@ class EchoServer(asyncore.dispatcher):
         return
 
     def handle_accept(self):
-        # Called when a client connects to our socket
         client_info = self.accept()
         socket_obj = EchoServerHandler(sock=client_info[0])
-        # We only want to deal with one client at a time,
-        # so close as soon as we set up the handler.
-        # Normally you would not do this and the server
-        # would run forever or until it received instructions
-        # to stop.
-        #self.handle_close()
         return
     
     def handle_close(self):
@@ -55,11 +49,11 @@ class EchoServer(asyncore.dispatcher):
 class EchoServerHandler(asynchat.async_chat):
     
     def __init__(self, sock):
-        self.received_data = [] #socket buffer
+        self.received_data = [] 
         self.connected = False
-        self.cmd_ops = {"TERM" : [self.close_when_done,[]]} #dict stores packet command, corresponding function call in mem, and the number of arguments needed to be passed
+        self.cmd_ops = {"TERM" : [self.close_when_done,[]]} 
         asynchat.async_chat.__init__(self, sock)
-        self.process_data = self._process_data #allows for switching data processing operators
+        self.process_data = self._process_data 
         self.set_terminator(packet_terminator)
         return
 
@@ -84,8 +78,8 @@ class EchoServerHandler(asynchat.async_chat):
         """We have the full ECHO command"""
         data = ''.join(self.received_data)
         data = data.split(' net_packet: ')
-        self.received_data = [] #empty buffer
-        if self.cmd_ops.has_key(data[0]) and len(data) == 1: self.cmd_ops[data[0]][0](*self.cmd_ops[data[0]][1]) #call stored function, pass stored arguments from tuple
+        self.received_data = [] 
+        if self.cmd_ops.has_key(data[0]) and len(data) == 1: self.cmd_ops[data[0]][0](*self.cmd_ops[data[0]][1]) 
         elif self.cmd_ops.has_key(data[0]) and len(data) > 1: self.cmd_ops[data[0]][0](data[1], *self.cmd_ops[data[0]][1])
         else: pass
 
@@ -98,23 +92,16 @@ class EchoServerHandler(asynchat.async_chat):
 
 
 class EchoClient(asynchat.async_chat):
-  
-    # Artificially reduce buffer sizes to illustrate
-    # sending and receiving partial messages.
-    #ac_in_buffer_size = 64
-    #ac_out_buffer_size = 64
     
     def __init__(self, host, port):
-        #self.message = message
-        self.received_data = [] #socket buffer
+
+        self.received_data = [] 
         self.connected = False
-        self.cmd_ops = {"TERM" : [self.close_when_done,[]]} #dict stores packet command, corresponding function call, and the number of arguments needed to be passed
-        #self.logger = logging.getLogger('EchoClient')
+        self.cmd_ops = {"TERM" : [self.close_when_done,[]]} 
         asynchat.async_chat.__init__(self)
         self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
         self.set_terminator(packet_terminator)
-        self.process_data = self._process_data #allows for switching data processing operators
-        #self.logger.debug('connecting to %s', (host, port))
+        self.process_data = self._process_data
         self.connect((host, port))
         return
 
@@ -127,23 +114,20 @@ class EchoClient(asynchat.async_chat):
         self.close()        
     
     def collect_incoming_data(self, data):
-        """Read an incoming message from the client and put it into our outgoing queue."""
         print(data)
         self.received_data.append(data)
 
     def found_terminator(self):
-        """The end of a command or message has been seen."""
         self._process_data()
         return
 
     def _process_data(self):
-        """We have the full ECHO command"""
         print(self.received_data)
         data = ''.join(self.received_data)
         data = data.split(' net_packet: ')
         print(data)
-        self.received_data = [] #empty buffer
-        if self.cmd_ops.has_key(data[0]) and len(data) == 1: self.cmd_ops[data[0]][0](*self.cmd_ops[data[0]][1]) #call stored function, pass stored arguments from tuple
+        self.received_data = [] 
+        if self.cmd_ops.has_key(data[0]) and len(data) == 1: self.cmd_ops[data[0]][0](*self.cmd_ops[data[0]][1]) 
         elif self.cmd_ops.has_key(data[0]) and len(data) > 1: self.cmd_ops[data[0]][0](data[1], *self.cmd_ops[data[0]][1])
         else: pass
 
